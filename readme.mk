@@ -1,47 +1,176 @@
-# Pasos para Configurar la Imagen de Mosquitto
+Configuración de la Imagen de Mosquitto
+Pasos para Configurar la Imagen de Mosquitto
+Descargue la imagen de Mosquitto utilizando el comando docker pull eclipse-mosquitto
+bash
 
-## 1. Descargar la Imagen de Mosquitto
-pull_image:
-	@echo Descargando la imagen de Mosquitto...
-	docker pull eclipse-mosquitto
+Verify
 
-## 2. Crear un Contenedor a Partir de la Imagen Descargada
-create_container:
-	@echo Creando un contenedor a partir de la imagen de Mosquitto...
-	docker run -d --name mosquitto_agosto -p 1883:1883 -p 9001:9001 eclipse-mosquitto
+Open In Editor
+Edit
+Copy code
+docker pull eclipse-mosquitto
+Cree un contenedor a partir de la imagen de Mosquitto utilizando el comando docker run
+bash
 
-## 3. Iniciar el Contenedor
-start_container:
-	@echo Iniciando el contenedor de Mosquitto...
-	docker start mosquitto_agosto
+Verify
 
-## 4. Instalar vim en el Contenedor
-install_vim:
-	@echo Instalando vim en el contenedor...
-	docker exec -it mosquitto_agosto apk add vim
+Open In Editor
+Edit
+Copy code
+docker run -d --name mosquitto_agosto -p 1883:1883 -p 9001:9001 eclipse-mosquitto
+Inicie el contenedor de Mosquitto utilizando el comando docker start
+bash
 
-## 5. Editar el Archivo mosquitto.conf
-# Descomentar las líneas allow_anonymous y listener en el archivo de configuración
-edit_conf:
-	@echo Configurando el archivo mosquitto.conf...
-	docker exec -it mosquitto_agosto /bin/sh -c 'cd /mosquitto/config && vim mosquitto.conf'
+Verify
 
-# Instrucciones para Editar mosquitto.conf
-# General configuration
-# Descomentar la línea allow_anonymous para permitir conexiones anónimas
+Open In Editor
+Edit
+Copy code
+docker start mosquitto_agosto
+Instale vim en el contenedor utilizando el comando docker exec
+bash
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+docker exec -it mosquitto_agosto apk add vim
+Edite el archivo mosquitto.conf utilizando el comando docker exec
+bash
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+docker exec -it mosquitto_agosto /bin/sh -c "cd /mosquitto/config && vim mosquitto.conf"
+Instrucciones para Editar mosquitto.conf
+General configuration
+Descomente la línea allow_anonymous para permitir conexiones anónimas
+markdown
+
+Verify
+
+Open In Editor
+Edit
+Copy code
 allow_anonymous
+Listeners
+Descomente la línea listener para habilitar el listener
+markdown
 
-# Listeners
-# Descomentar la línea listener para habilitar el listener
+Verify
+
+Open In Editor
+Edit
+Copy code
 listener
+Editar el Archivo con vim
+Busque una línea presionando Esc seguido de / y el texto a buscar.
+Presione Enter para ir a la línea encontrada y descomentarla.
+Guarde los cambios con :w.
+Salga del editor con :qa.
+Reinicie el contenedor de Mosquitto utilizando el comando docker restart
+bash
 
-# Para editar el archivo con vim:
-# 1. Buscar una línea presionando Esc seguido de / y el texto a buscar.
-# 2. Presionar Enter para ir a la línea encontrada y descomentarla.
-# 3. Guardar los cambios con :w.
-# 4. Salir del editor con :qa.
+Verify
 
-## 6. Reiniciar el Contenedor
-restart_container:
-	@echo Reiniciando el contenedor de Mosquitto...
-	docker restart mosquitto_agosto
+Open In Editor
+Edit
+Copy code
+docker restart mosquitto_agosto
+
+en un solo md
+
+
+Configuración de la Imagen de Mosquitto
+Pasos para Configurar la Imagen de Mosquitto
+Descargue la imagen de Mosquitto utilizando el comando docker pull eclipse-mosquitto
+
+bash
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+docker pull eclipse-mosquitto
+Cree un contenedor a partir de la imagen de Mosquitto utilizando el comando docker run
+
+bash
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+docker run -d --name mosquitto_agosto -p 1883:1883 -p 9001:9001 eclipse-mosquitto
+Inicie el contenedor de Mosquitto utilizando el comando docker start
+
+bash
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+docker start mosquitto_agosto
+Instale vim en el contenedor utilizando el comando docker exec
+
+bash
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+docker exec -it mosquitto_agosto apk add vim
+Edite el archivo mosquitto.conf utilizando el comando docker exec
+
+bash
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+docker exec -it mosquitto_agosto /bin/sh -c "cd /mosquitto/config && vim mosquitto.conf"
+Instrucciones para Editar mosquitto.conf
+General configuration
+Descomente la línea allow_anonymous para permitir conexiones anónimas
+
+markdown
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+allow_anonymous
+Listeners
+Descomente la línea listener para habilitar el listener
+
+markdown
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+listener
+Editar el Archivo con vim
+Busque una línea presionando Esc seguido de / y el texto a buscar.
+Presione Enter para ir a la línea encontrada y descomentarla.
+Guarde los cambios con :w.
+Salga del editor con :qa.
+Reinicie el contenedor de Mosquitto utilizando el comando docker restart
+
+bash
+
+Verify
+
+Open In Editor
+Edit
+Copy code
+docker restart mosquitto_agosto
