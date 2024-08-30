@@ -18,15 +18,11 @@
 
 # Instrucciones para Editar `mosquitto.conf`
 ------------------------------------------------------------------
-General configuration
+General configuration : Descomentar la línea `allow_anonymous` 
+
 ------------------------------------------------------------------
-Descomentar la línea `allow_anonymous` para permitir conexiones anónimas
-allow_anonymous
-------------------------------------------------------------------
-Listeners
-------------------------------------------------------------------
-Descomentar la línea `listener` para habilitar el listener
-listener
+Listeners: Descomentar la línea `listener` 
+
 
 # Para editar el archivo con `vim`:
 1. Buscar una línea presionando `Esc` seguido de `/` y el texto a buscar.
