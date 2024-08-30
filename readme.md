@@ -30,10 +30,10 @@ allow_anonymous
 listener
 
 # Para editar el archivo con `vim`:
-# 1. Buscar una línea presionando `Esc` seguido de `/` y el texto a buscar.
-# 2. Presionar `Enter` para ir a la línea encontrada y descomentarla.
-# 3. Guardar los cambios con `:w`.
-# 4. Salir del editor con `:qa`.
+1. Buscar una línea presionando `Esc` seguido de `/` y el texto a buscar.
+2. Presionar `Enter` para ir a la línea encontrada y descomentarla.
+3. Guardar los cambios con `:w`.
+4. Salir del editor con `:qa`.
 
 # 6. Reiniciar el Contenedor
 	docker restart mosquitto_agosto
