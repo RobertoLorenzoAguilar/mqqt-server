@@ -1,0 +1,621 @@
+[
+    {
+        "id": "eae8d13c5a5dfc9e",
+        "type": "tab",
+        "label": "Flow 6",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b8e5391d95de5f77",
+        "type": "mqtt in",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "",
+        "topic": "ClaseIoT",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "d1936ba266990220",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "b2ec24741e876355"
+            ]
+        ]
+    },
+    {
+        "id": "b2ec24741e876355",
+        "type": "switch",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "RangosEnvio",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "10",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "6b29c069047b56de"
+            ]
+        ]
+    },
+    {
+        "id": "b7f2d961817fec96",
+        "type": "admin",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "WA Admin",
+        "whatsappLink": "2d624b68ca95a12c",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "57998da4c18d63fa"
+            ]
+        ]
+    },
+    {
+        "id": "b61885a040d85514",
+        "type": "chats-out",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Chats Out",
+        "whatsappLink": "2d624b68ca95a12c",
+        "number": "+526371104565",
+        "x": 1000,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f0a7eb787d43a8cd",
+        "type": "debug",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "msg recibido",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 330,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "57998da4c18d63fa",
+        "type": "change",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "set source payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "source",
+                "pt": "msg",
+                "to": "msg_out_ws",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 220,
+        "wires": [
+            [
+                "6b29c069047b56de"
+            ]
+        ]
+    },
+    {
+        "id": "6b29c069047b56de",
+        "type": "function",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Sincronizacón sensores y WS manager",
+        "func": "// Imprime el mensaje recibido en el nodo de depuración\n//node.warn(\"Mensaje recibido: \" + JSON.stringify(msg));\n\n// Recupera el estado actual desde el contexto global\nlet connectedStatus = global.get(\"connectedStatus\") || false;\nlet source = global.get(\"source\") || \"\";\n\n// Imprime el valor de connectedStatus en el panel de depuración\n// node.warn(\"Valor de connectedStatus antes de la verificación: \" + connectedStatus);\n\n// Verifica si msg.payload es una cadena\nif (msg.payload === \"Connected\" && msg.source === \"msg_out_ws\") {\n    // Solo actualiza el estado a true si connectedStatus es false\n    if (!connectedStatus) {\n        global.set(\"connectedStatus\", true);\n        global.set(\"source\", \"msg_out_ws\");\n        //node.warn(\"Estado actualizado a: connectedStatus = true\");\n    }\n    // Permite que el mensaje pase a través del flujo\n    return msg;\n} else {\n    // Solo actualiza el estado a false si es true\n    if (connectedStatus) {\n        //node.warn(\"Estado mantenido como: connectedStatus = true\");\n\n        // Verifica si `msg.payload` es un objeto y extrae los valores\n        if (typeof msg.payload === 'object' && msg.payload !== null) {\n            // Extrae los valores de temperatura, humedad y luz\n            let temperatura = msg.payload.temperatura || \"N/A\";\n            let humedad = msg.payload.humedad || \"N/A\";\n            let luz = msg.payload.luz || \"N/A\";\n\n            // Construye el payload como una cadena\n            let formattedPayload = `temperatura: ${temperatura}, humedad: ${humedad}, luz: ${luz}`;\n            //node.warn(\"Payload formateado: \" + formattedPayload);\n\n            // Retorna un nuevo mensaje con el payload formateado\n            return {\n                payload: formattedPayload\n            };\n        } else {\n            // Manejo de errores si msg.payload no es un objeto o es null\n            //node.warn(\"msg.payload no es un objeto o es null: \" + JSON.stringify(msg.payload));\n            return null; // O maneja el error de otra manera\n        }\n    } else {\n        //node.warn(\"Estado mantenido como: connectedStatus = false\");\n        return null; // O retorna un mensaje alternativo si es necesario\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 160,
+        "wires": [
+            [
+                "b61885a040d85514",
+                "02b9b125015fc978",
+                "80fa5a3e40ee0f0e",
+                "174a5cdcddc32f2a"
+            ]
+        ]
+    },
+    {
+        "id": "02b9b125015fc978",
+        "type": "function",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "f_temperatura",
+        "func": "// Suponiendo que el payload es un string en el formato dado\nlet payload = msg.payload;\n\n// Extraer solo la temperatura utilizando una expresión regular\nlet matches = payload.match(/temperatura:\\s*([\\d.]+)/);\n\nif (matches) {\n    // Asignar el valor extraído a una variable\n    let temperatura = parseFloat(matches[1]);\n    \n    // Imprimir la temperatura en la consola de depuración\n    //node.warn(\"Temperatura recibida: \" + temperatura);\n    \n    // Agregar la temperatura al objeto msg\n    msg.temp = temperatura;\n}\n\n// Retornar el mensaje\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 340,
+        "wires": [
+            [
+                "f9145c49179dbfba"
+            ]
+        ]
+    },
+    {
+        "id": "80fa5a3e40ee0f0e",
+        "type": "function",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "f_luz",
+        "func": "// Suponiendo que el payload es un string en el formato dado\nlet payload = msg.payload;\n\n// Extraer solo la temperatura utilizando una expresión regular\nlet matches = payload.match(/luz:\\s*([\\d.]+)/);\n\nif (matches) {\n    // Asignar el valor extraído a una variable\n    let luz = parseFloat(matches[1]);\n    \n    // Imprimir la temperatura en la consola de depuración\n    //node.warn(\"Luz recibida: \" + luz);\n    \n    // Agregar la temperatura al objeto msg\n    msg.luz = luz;\n}\n\n// Retornar el mensaje\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 650,
+        "y": 380,
+        "wires": [
+            [
+                "768b52f319ac703c"
+            ]
+        ]
+    },
+    {
+        "id": "174a5cdcddc32f2a",
+        "type": "function",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "f_humedad",
+        "func": "// Suponiendo que el payload es un string en el formato dado\nlet payload = msg.payload;\n\n// Extraer solo la temperatura utilizando una expresión regular\nlet matches = payload.match(/humedad:\\s*([\\d.]+)/);\n\nif (matches) {\n    // Asignar el valor extraído a una variable\n    let humedad = parseFloat(matches[1]);\n\n    // Imprimir la temperatura en la consola de depuración\n    //node.warn(\"humedad: \" + humedad);\n\n    // Agregar la temperatura al objeto msg\n    msg.humedad = humedad;\n}\n\n// Retornar el mensaje\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 420,
+        "wires": [
+            [
+                "4e0297cae7c1a12e"
+            ]
+        ]
+    },
+    {
+        "id": "f77e375285aa04dc",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Imprime las variables independientes",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 1130,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "6ad839b35bcfc9ee",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Separa las variables por sensor",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 710,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "16e12bb63e4d88f9",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Envia mensaje por ws",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 1000,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "282c5cdd3981d723",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Input mqqt ",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 120,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "17e0705389fe3849",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Filtra información recibida de sensores rangos en Gral",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 400,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "be50af2e2be2f8ae",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Sincroniza WS",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 120,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ecc77dc860589e1a",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Setea el origen del payload",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 330,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "66c5fd3c1ebebc2e",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Recibe Mensajes por cliente",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 140,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "5debdb7bcd981a77",
+        "type": "comment",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Imrpime Mensaje Recibido",
+        "info": "Imprime las variables independientes:\n - temperatura\n - luz\n - humedad",
+        "x": 310,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "768b52f319ac703c",
+        "type": "switch",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "RangosLuz",
+        "property": "luz",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "40",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 380,
+        "wires": [
+            [
+                "6dd227ea9c26405e"
+            ]
+        ]
+    },
+    {
+        "id": "4e0297cae7c1a12e",
+        "type": "switch",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "RangosHumedad",
+        "property": "humedad",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "60",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 890,
+        "y": 420,
+        "wires": [
+            [
+                "f4131e1a4ceca1a0"
+            ]
+        ]
+    },
+    {
+        "id": "f9145c49179dbfba",
+        "type": "switch",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "RangoTemp",
+        "property": "temp",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "35",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 340,
+        "wires": [
+            [
+                "e64031f15c49e335"
+            ]
+        ]
+    },
+    {
+        "id": "baa30d939957728c",
+        "type": "chats-in",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Chats In",
+        "whatsappLink": "2d624b68ca95a12c",
+        "whatsappLiteevent": "messages.upsert",
+        "whatsappWebevent": "message",
+        "x": 120,
+        "y": 400,
+        "wires": [
+            [
+                "f0a7eb787d43a8cd"
+            ]
+        ]
+    },
+    {
+        "id": "8cc83839cebe5a0c",
+        "type": "telegram receiver",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Recepcion Mensajes",
+        "bot": "08badbfd573d332b",
+        "saveDataDir": "",
+        "filterCommands": false,
+        "x": 130,
+        "y": 560,
+        "wires": [
+            [
+                "576f886ef8fedd7c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "576f886ef8fedd7c",
+        "type": "debug",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "msg telegram",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "a52039bbace2386b",
+        "type": "telegram sender",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "",
+        "bot": "08badbfd573d332b",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 1010,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0b0a3b06544c08ac",
+        "type": "inject",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 570,
+        "y": 560,
+        "wires": [
+            [
+                "e64031f15c49e335"
+            ]
+        ]
+    },
+    {
+        "id": "e64031f15c49e335",
+        "type": "function",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Payload Temp Tel",
+        "func": "msg.payload={\n    \"chatId\": -4574160681,\n    \"type\":\"message\",\n    \"content\":\"temperatura es: \"+ msg.temp \n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 640,
+        "wires": [
+            [
+                "a52039bbace2386b"
+            ]
+        ]
+    },
+    {
+        "id": "03aa951ffe8b8346",
+        "type": "inject",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 810,
+        "y": 100,
+        "wires": [
+            [
+                "b61885a040d85514"
+            ]
+        ]
+    },
+    {
+        "id": "f4131e1a4ceca1a0",
+        "type": "function",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Payload Temp Hum",
+        "func": "node.warn(\"Mensaje recibido: \" + JSON.stringify(msg));\nmsg.payload={\n    \"chatId\": -4574160681,\n    \"type\":\"message\",\n    \"content\":\"humedad es: \"+ msg.humedad \n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 720,
+        "wires": [
+            [
+                "a52039bbace2386b"
+            ]
+        ]
+    },
+    {
+        "id": "6dd227ea9c26405e",
+        "type": "function",
+        "z": "eae8d13c5a5dfc9e",
+        "name": "Payload Temp Luz",
+        "func": "\nmsg.payload={\n    \"chatId\": -4574160681,\n    \"type\":\"message\",\n    \"content\":\"luz es: \"+ msg.luz \n}\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 680,
+        "wires": [
+            [
+                "a52039bbace2386b"
+            ]
+        ]
+    },
+    {
+        "id": "d1936ba266990220",
+        "type": "mqtt-broker",
+        "name": "robert",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "2d624b68ca95a12c",
+        "type": "whatsappLink",
+        "cName": "whatsapp-web",
+        "name": "Web",
+        "clientType": "waWebClient",
+        "onlineStatus": true,
+        "loopTime": "5"
+    },
+    {
+        "id": "08badbfd573d332b",
+        "type": "telegram bot",
+        "botname": "mqqt_ra_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "testenvironment": false,
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksprotocol": "socks5",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    }
+]
