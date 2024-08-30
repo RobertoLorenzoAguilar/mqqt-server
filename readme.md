@@ -19,6 +19,7 @@
 # Instrucciones para Editar `mosquitto.conf`
 ------------------------------------------------------------------
 General configuration : Descomentar la línea `allow_anonymous` 
+allow_anonymous true
 
 ------------------------------------------------------------------
 Listeners: Descomentar la línea `listener` 
