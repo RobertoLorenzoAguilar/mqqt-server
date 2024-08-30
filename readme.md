@@ -17,16 +17,15 @@
 	docker exec -it mosquitto_agosto /bin/sh -c "cd /mosquitto/config && vim mosquitto.conf"
 
 # Instrucciones para Editar `mosquitto.conf`
-# =================================================================
-# General configuration
-# =============================================================
-# Descomentar la línea `allow_anonymous` para permitir conexiones anónimas
+------------------------------------------------------------------
+General configuration
+------------------------------------------------------------------
+Descomentar la línea `allow_anonymous` para permitir conexiones anónimas
 allow_anonymous
-
-# =================================================================
-# Listeners
-# =================================================================
-# Descomentar la línea `listener` para habilitar el listener
+------------------------------------------------------------------
+Listeners
+------------------------------------------------------------------
+Descomentar la línea `listener` para habilitar el listener
 listener
 
 # Para editar el archivo con `vim`:
