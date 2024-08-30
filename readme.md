@@ -2,7 +2,7 @@
 
 Este proyecto configura un sistema de automatización y comunicación utilizando varias tecnologías. La infraestructura incluye Node-RED, Docker, Mosquitto (Eclipse), WhatsApp y un bot de Telegram. El objetivo es crear una solución integrada que permita el control y la monitorización de dispositivos simulando sensores mediante un script de python, así como la comunicación a través de múltiples canales.
 <p align="center">
-  <img src="images/node_red_configuration.png" alt="Logo" width="80" height="80">
+  <img src="images/node_red_configuration.png" alt="Logo">
 </p>
 ## Tecnologías Utilizadas
 
@@ -88,7 +88,7 @@ listener 1883 0.0.0.0
 3. Guardar los cambios con `:w`.
 4. Salir del editor con `:qa`.
 <p align="center">
-  <img src="images/buscando_vim" alt="Logo" width="80" height="80">
+  <img src="images/buscando_vim" alt="Logo" >
 </p>
 
 
