@@ -88,7 +88,7 @@ listener 1883 0.0.0.0
 3. Guardar los cambios con `:w`.
 4. Salir del editor con `:qa`.
 <p align="center">
-  <img src="images/buscando_vim" alt="Logo" >
+  <img src="images/buscando_vim.png" alt="Logo" >
 </p>
 
 
