@@ -22,6 +22,7 @@ General configuration : Descomentar la línea `allow_anonymous`
 
 ------------------------------------------------------------------
 Listeners: Descomentar la línea `listener` 
+listener 1883 0.0.0.0
 
 
 # Para editar el archivo con `vim`:
