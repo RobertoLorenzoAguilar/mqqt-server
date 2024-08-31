@@ -118,7 +118,7 @@ nota: con estos pasos tienes una imágen a partir de tu contenedor previamente c
 
 despues de seleccionar el raspberry pi en donde se instalara raspbian 
 y la memoria sd en la cual se instalara necesitas habilitar la seleccion de ssh y el usuario 
-por el cual te autenticaras en el raspberry de manera remota
+por el cual te autenticaras en el raspberry de manera remota opciones se accede por ctrl + shift + x
 
 
 <p align="center">
