@@ -127,3 +127,17 @@ por el cual te autenticaras en el raspberry de manera remota
 <p align="center">
   <img src="images/raspberri_config_2.png" alt="Logo" >
 </p>
+
+-  ssh sa@192.168.100.50  / donde sa es el usuario y la contraseña es la que previamente configuraste
+-  despues te iras a configurar VCN para poder conectarte al escritorio remoto no solo monitor
+-  RealVNC descargar esta utileria
+<p align="center">
+  <img src="images/vnc.png" alt="Logo" >
+</p>
+<p align="center">
+  <img src="images/vnc1.png" alt="Logo" >
+</p>
+<p align="center">
+  <img src="images/vcn_enable.png" alt="Logo" >
+</p>
+
