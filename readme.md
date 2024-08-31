@@ -94,6 +94,8 @@ listener 1883 0.0.0.0
 
 # 6. Reiniciar el Contenedor
 	docker restart mosquitto_agosto
+        docker exec -it mi_contenedor /bin/sh  //modo terminal ppara interactuar en la instancia del contededor
+
 
 
 
