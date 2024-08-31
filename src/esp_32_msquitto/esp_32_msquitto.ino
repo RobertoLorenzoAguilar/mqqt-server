@@ -18,14 +18,14 @@
   - Select your ESP8266 in "Tools -> Board"
 */
 
-#include <WiFi.h>
+#include <WiFi.h> // replace ESP8266 by oonly wifi if want to use a esp32 module
 #include <PubSubClient.h>
 #define BUILTIN_LED 2
 // Update these with values suitable for your network.
 
-const char* ssid = "Totalplay-CEAE";
-const char* password = "brdk4@bug";
-const char* mqtt_server = "192.168.100.15";
+const char* ssid = "YOu_NewtWork_Name";
+const char* password = "network_password";
+const char* mqtt_server = "192.168.100.15"; // change by your server configured
 
 WiFiClient espClient;
 PubSubClient client(espClient);
