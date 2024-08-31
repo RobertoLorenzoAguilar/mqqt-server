@@ -96,6 +96,20 @@ listener 1883 0.0.0.0
 	docker restart mosquitto_agosto
         docker exec -it mi_contenedor /bin/sh  //modo terminal ppara interactuar en la instancia del contededor
 
+# Crear una imagen a partir del contenedor
+	docker commit mi_contenedor mi_imagen_personalizada:v1
+# Puedes personalizar la imagen
+	docker tag mi_imagen_personalizada:v1 usuario_dockerhub/mi_imagen_personalizada:v
+# Docker login
+	docker push usuario_dockerhub/mi_imagen_personalizada:v1
+# Verifica la imagen subida 
+	docker search usuario_dockerhub/mi_imagen_personalizada
+
+
+
+
+Incias Sesion con tu cuenta de Docker
+docker login
 
 
 
