@@ -100,16 +100,11 @@ listener 1883 0.0.0.0
 	docker commit mi_contenedor mi_imagen_personalizada:v1
 # Puedes personalizar la imagen
 	docker tag mi_imagen_personalizada:v1 usuario_dockerhub/mi_imagen_personalizada:v
-# Docker login
+
+# Incias Sesion con tu cuenta de Docker
+	Docker login
 	docker push usuario_dockerhub/mi_imagen_personalizada:v1
 # Verifica la imagen subida 
 	docker search usuario_dockerhub/mi_imagen_personalizada
 
-
-
-
-Incias Sesion con tu cuenta de Docker
-docker login
-
-
-
+nota: con estos pasos tienes una imágen a partir de tu contenedor previamente configurado de manera local y con el editor de textos VIM.
