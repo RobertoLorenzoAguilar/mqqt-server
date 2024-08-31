@@ -107,4 +107,8 @@ listener 1883 0.0.0.0
 # Verifica la imagen subida 
 	docker search usuario_dockerhub/mi_imagen_personalizada
 
+# A continuación pueden encontrar una imagén configurada con todos los pasos anteriores para trabajar rapidamente de manera local:
+
+	docker pull robertolorenzoaguilarith/eclipse_mosquitto_local:v1
+
 nota: con estos pasos tienes una imágen a partir de tu contenedor previamente configurado de manera local y con el editor de textos VIM.
