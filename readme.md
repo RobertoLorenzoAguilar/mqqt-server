@@ -132,10 +132,10 @@ por el cual te autenticaras en el raspberry de manera remota
 -  despues te iras a configurar VCN para poder conectarte al escritorio remoto no solo monitor
 -  RealVNC descargar esta utileria
 <p align="center">
-  <img src="images/vnc.png" alt="Logo" >
+  <img src="images/vnc0.png" alt="Logo" >
 </p>
 <p align="center">
-  <img src="images/vnc1.png" alt="Logo" >
+  <img src="images/vnc.png" alt="Logo" >
 </p>
 <p align="center">
   <img src="images/vcn_enable.png" alt="Logo" >
