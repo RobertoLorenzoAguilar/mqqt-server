@@ -99,7 +99,7 @@ listener 1883 0.0.0.0
 # Crear una imagen a partir del contenedor
 	docker commit mi_contenedor mi_imagen_personalizada:v1
 # Puedes personalizar la imagen
-	docker tag mi_imagen_personalizada:v1 usuario_dockerhub/mi_imagen_personalizada:v
+	docker tag mi_imagen_personalizada:v1 usuario_dockerhub/mi_imagen_personalizada:v1
 
 # Incias Sesion con tu cuenta de Docker
 	Docker login
