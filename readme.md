@@ -112,3 +112,18 @@ listener 1883 0.0.0.0
 	docker pull robertolorenzoaguilarith/eclipse_mosquitto_local:v1
 
 nota: con estos pasos tienes una imágen a partir de tu contenedor previamente configurado de manera local y con el editor de textos VIM.
+
+
+¿Como crear un servidor mosquitto, un broker en un raspberry pi?
+
+despues de seleccionar el raspberry pi en donde se instalara raspbian 
+y la memoria sd en la cual se instalara necesitas habilitar la seleccion de ssh y el usuario 
+por el cual te autenticaras en el raspberry de manera remota
+
+
+<p align="center">
+  <img src="images/config_rasp.png" alt="Logo" >
+</p>
+<p align="center">
+  <img src="images/raspberri_config_2.png" alt="Logo" >
+</p>
